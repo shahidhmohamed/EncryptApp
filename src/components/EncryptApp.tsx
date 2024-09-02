@@ -1,28 +1,36 @@
 import React, { useState } from 'react';
 
 const EncryptApp: React.FC = () => {
-  const [inputText, setInputText] = useState('');
-  const [outputText, setOutputText] = useState('');
-  const [isEncrypted, setIsEncrypted] = useState(true);
+  const [inputText, setInputText] = useState<string>('');
+  const [outputText, setOutputText] = useState<string>('');
+  const [isEncrypted, setIsEncrypted] = useState<boolean>(false);
 
-  const encryptText = (text: string): string => {
-    return btoa(text); // Simple base64 encoding for demonstration
-  };
-
-  const decryptText = (text: string): string => {
-    try {
-      return atob(text);
-    } catch (e) {
-      return 'Invalid encrypted text!';
-    }
+  const handlePaste = async () => {
+    const text = await navigator.clipboard.readText();
+    setInputText(text);
   };
 
   const handleConvert = () => {
     if (isEncrypted) {
-      setOutputText(encryptText(inputText));
+      // Decrypt the text (simple Caesar cipher for example)
+      const decryptedText = inputText
+        .split('')
+        .map(char => String.fromCharCode(char.charCodeAt(0) - 3))
+        .join('');
+      setOutputText(decryptedText);
     } else {
-      setOutputText(decryptText(inputText));
+      // Encrypt the text (simple Caesar cipher for example)
+      const encryptedText = inputText
+        .split('')
+        .map(char => String.fromCharCode(char.charCodeAt(0) + 3))
+        .join('');
+      setOutputText(encryptedText);
     }
+  };
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(outputText);
+    alert('Copied to clipboard!');
   };
 
   const handleSwap = () => {
@@ -31,60 +39,51 @@ const EncryptApp: React.FC = () => {
     setIsEncrypted(!isEncrypted);
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(outputText);
-  };
-
-  const handlePaste = async () => {
-    try {
-      const text = await navigator.clipboard.readText();
-      setInputText(text);
-    } catch (err) {
-      console.error('Failed to read clipboard contents: ', err);
-    }
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center h-35">
-      <h1 className="mb-6 text-2xl font-bold text-white">Encrypt and Decrypt</h1>
-      <div className="flex space-x-4">
+    <div className="text-center">
+      <h1 className="text-2xl font-bold mb-4">Encrypt/Decrypt Tool</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
         <textarea
-          className="p-4 w-64 h-40 border rounded-md"
+          className="p-2 border rounded-lg w-full"
+          rows={5}
+          placeholder={isEncrypted ? 'Encrypted message...' : 'Type or paste text to encrypt...'}
           value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          placeholder={isEncrypted ? "Type or paste text to encrypt" : "Paste encrypted text"}
+          onChange={e => setInputText(e.target.value)}
         />
         <textarea
-          className="p-4 w-64 h-40 border rounded-md"
+          className="p-2 border rounded-lg w-full"
+          rows={5}
+          placeholder={isEncrypted ? 'Decrypted message...' : 'Encrypted message will appear here...'}
           value={outputText}
           readOnly
-          placeholder="Output will appear here"
         />
       </div>
-      <div className="flex mt-4 space-x-4">
+
+      <div className="flex justify-center space-x-2">
         <button
-          className="px-4 py-2 bg-gray-500 text-white rounded-md"
+          className="px-4 py-2 text-white bg-gray-800 rounded-lg"
           onClick={handlePaste}
         >
           Paste
         </button>
         <button
-          className="px-4 py-2 bg-blue-900 text-white rounded-md"
+          className="px-4 py-2 bg-blue-800 text-white rounded-lg"
           onClick={handleConvert}
         >
           Convert
         </button>
         <button
-          className="px-4 py-2 bg-yellow-400 text-white rounded-md"
-          onClick={handleSwap}
-        >
-          Swap
-        </button>
-        <button
-          className="px-4 py-2 bg-green-700 text-white rounded-md"
+          className="px-4 py-2 bg-green-800 text-white rounded-lg"
           onClick={handleCopy}
         >
           Copy
+        </button>
+        <button
+          className="px-4 py-2 bg-yellow-400 text-white rounded-lg"
+          onClick={handleSwap}
+        >
+          Swap
         </button>
       </div>
     </div>

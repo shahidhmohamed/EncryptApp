@@ -5,18 +5,21 @@ import earthVideo from '../src/components/earth.mp4';
 const App: React.FC = () => {
   return (
     <div className="relative h-screen overflow-hidden">
-      {/* Background Video */}
+      {/* Background Video, hidden on small screens */}
       <video
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        className="hidden sm:block absolute top-0 left-0 w-full h-full object-cover z-0"
         src={earthVideo}
         autoPlay
         muted
         loop
       />
 
-      {/* Overlay for content */}
-      <div className="relative z-10 flex justify-center items-center h-full">
-        <div className="bg-white bg-opacity-25 p-5 rounded-lg shadow-lg">
+      {/* Dark Overlay */}
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-10"></div>
+
+      {/* Content */}
+      <div className="relative z-20 flex justify-center items-center h-full p-4 sm:p-6 md:p-10">
+        <div className="bg-white bg-opacity-75 p-5 sm:p-6 md:p-8 lg:p-10 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
           <EncryptApp />
         </div>
       </div>
