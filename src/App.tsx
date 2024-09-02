@@ -5,13 +5,14 @@ import earthVideo from '../src/components/earth.mp4';
 const App: React.FC = () => {
   return (
     <div className="relative h-screen overflow-hidden">
-      {/* Background Video, hidden on small screens */}
+      {/* Background Video - added playsInline and adjusted visibility for mobile */}
       <video
-        className="hidden sm:block absolute top-0 left-0 w-full h-full object-cover z-0"
+        className="absolute top-0 left-0 w-full h-full object-cover z-0"
         src={earthVideo}
         autoPlay
         muted
         loop
+        playsInline
       />
 
       {/* Dark Overlay */}

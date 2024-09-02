@@ -60,27 +60,27 @@ const EncryptApp: React.FC = () => {
         />
       </div>
 
-      <div className="flex justify-center space-x-2">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 justify-center">
         <button
-          className="px-4 py-2 text-white bg-gray-800 rounded-lg"
+          className="px-4 py-2 text-white bg-gray-800 rounded-lg w-full"
           onClick={handlePaste}
         >
           Paste
         </button>
         <button
-          className="px-4 py-2 bg-blue-800 text-white rounded-lg"
+          className="px-4 py-2 bg-blue-800 text-white rounded-lg w-full"
           onClick={handleConvert}
         >
           Convert
         </button>
         <button
-          className="px-4 py-2 bg-green-800 text-white rounded-lg"
+          className="px-4 py-2 bg-green-800 text-white rounded-lg w-full"
           onClick={handleCopy}
         >
           Copy
         </button>
         <button
-          className="px-4 py-2 bg-yellow-400 text-white rounded-lg"
+          className="px-4 py-2 bg-yellow-400 text-white rounded-lg w-full"
           onClick={handleSwap}
         >
           Swap
