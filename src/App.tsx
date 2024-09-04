@@ -1,6 +1,6 @@
-import React from 'react';
-import EncryptApp from './components/EncryptApp';
-import earthVideo from '../src/components/earth.mp4';
+import React from "react";
+import EncryptApp from "./components/EncryptApp";
+import earthVideo from "../src/components/earth.mp4";
 
 const App: React.FC = () => {
   return (
@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
       {/* Content */}
       <div className="relative z-20 flex justify-center items-center h-full p-4 sm:p-6 md:p-10">
-        <div className="bg-white bg-opacity-75 p-5 sm:p-6 md:p-8 lg:p-10 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
+        <div className="bg-white bg-opacity-55 p-5 sm:p-6 md:p-8 lg:p-10 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
           <EncryptApp />
         </div>
       </div>
